@@ -26,11 +26,11 @@ I can use shortcodes like `:fire:` that get converted into emojis like 🔥
 So I can record notes with fun little pictures
 ```
 
-###MVP:
+### MVP:
 
 Notes:
-- Separate js class for notes
-- Return first 20 characters
+- [x] Separate js class for notes 
+- [x] Return first 20 characters
 
 
 List of notes:
@@ -42,7 +42,7 @@ Index.html:
 - Displays the above
 
 
-###Phase 2:
+### Phase 2:
 
 Notes class
 - Edit notes
@@ -51,7 +51,7 @@ List of notes class
 - Delete notes
 
 
-###Model:
+### Model:
 
 Class Note {
 	constructor (content) {
