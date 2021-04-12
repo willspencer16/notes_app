@@ -8,4 +8,12 @@ class List {
     this.store.push(newNote);
     return newNote
   }
+
+  getPreviews() {
+    let result = [];
+    this.store.forEach(function (note) {
+      result.push(note.preview);
+    })
+    return result;
+  }
  }
