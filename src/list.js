@@ -12,7 +12,7 @@ class List {
   getPreviews() {
     let result = [];
     this.store.forEach(function (note) {
-      result.push(note.preview);
+      result.push(note.preview());
     })
     return result;
   }
