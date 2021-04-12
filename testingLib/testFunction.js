@@ -7,7 +7,3 @@ function isItTheDuckingSame(executedFunction, expectedOutput, description) {
     console.log(`%c ${description} - its ducked`,'color: #FF0000')
   }
 }
-
-isItTheDuckingSame("Test", "Test", "Is this working? ")
-isItTheDuckingSame("Tester", "Test", "Is this working? ")
-isItTheDuckingSame("test".length, 4, "tests for instance variables")
