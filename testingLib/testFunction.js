@@ -1,4 +1,4 @@
-// add your tests below and run with the testRunner.html
+// add your tests below and run with the TestRunner.html
 
 function isItTheDuckingSame(executedFunction, expectedOutput, description) {
   if (executedFunction === expectedOutput) {
@@ -10,5 +10,4 @@ function isItTheDuckingSame(executedFunction, expectedOutput, description) {
 
 isItTheDuckingSame("Test", "Test", "Is this working? ")
 isItTheDuckingSame("Tester", "Test", "Is this working? ")
-
 isItTheDuckingSame("test".length, 4, "tests for instance variables")
