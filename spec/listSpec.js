@@ -1,3 +1,5 @@
 //isItTheDuckingSame(executedFunction, expectedOutput, description)
 
-isItTheDuckingSame()
+let list = new List();
+
+isItTheDuckingSame(list.store.length, 0, 'list.store should be a empty array');
