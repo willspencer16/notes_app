@@ -24,5 +24,8 @@ createNote.addEventListener('click', makeNote, false);
 function makeNote() {
   list.createNote(document.getElementById("noteArea").value);
   document.getElementById("noteArea").value = '';
+  document.getElementById('previews').innerHTML = '';
   mountPreviews(list)
 }
+
+mountPreviews(list)
