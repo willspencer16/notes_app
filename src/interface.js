@@ -1,7 +1,6 @@
-
 // preview DOM interactivity
 
-// function addPreviewText(noteText) { document.createTextNode(noteText) }
+let list = new List();
 
 function mountPreviews(listInstance) {
 
@@ -17,4 +16,13 @@ function mountPreviews(listInstance) {
     previewsContainer.appendChild(newHeading);
     previewsContainer.appendChild(gap);
   });
+}
+
+const createNote = document.getElementById('createNote');
+createNote.addEventListener('click', makeNote, false);
+
+function makeNote() {
+  list.createNote(document.getElementById("noteArea").value);
+  document.getElementById("noteArea").value = '';
+  mountPreviews(list)
 }
