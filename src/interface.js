@@ -3,6 +3,7 @@
 let list = new List();
 let noteArea = document.getElementById("noteArea")
 let previewsContainer = document.getElementById('previews');
+let duckingStorage = window.localStorage;
 
 async function postData(url = '', data = {}) {
   // Default options are marked with *
@@ -35,6 +36,26 @@ function mountPreviews(listInstance) {
   });
 }
 
+
+
+function mountPreviews2(listInstance) {
+  listInstance.forEach(function (preview) {
+    var newHeading = document.createElement('a')
+    var previewText = document.createTextNode(preview.content);
+    var gap = document.createElement('br');
+
+    newHeading.appendChild(previewText);
+
+    previewsContainer.appendChild(newHeading);
+    previewsContainer.appendChild(gap);
+  });
+}
+
+function storesNotesLocally(note) {
+  duckingStorage = window.localStorage;
+  duckingStorage.setItem('store', `${note}`);
+}
+
 const createNote = document.getElementById('createNote');
 createNote.addEventListener('click', makeNote, false);
 
@@ -44,11 +65,28 @@ function makeNote() {
   .then(data => {
 
     list.createNote(data.emojified_text);
+    var test = JSON.stringify(list.store)
+    storesNotesLocally(test)
+    // console.log(duckingStorage.getItem('store'))
 
     noteArea.value = '';
     previewsContainer.innerHTML = '';
     mountPreviews(list)
-});  
+});
 }
 
+console.log(JSON.stringify("note"))
+
+// window.addEventListener('click', function() {
+//   alert("Hello! I am an alert box!!");
+//   duckingStorage = window.localStorage;
+//
+//   duckingStorage.setItem('myCat', 'Tom');
+//   alert(`${duckingStorage.getItem('BCRevision_1586197124329')}`)
+// })
+
+
+
 mountPreviews(list)
+// console.log(JSON.parse(duckingStorage.getItem('store')))
+mountPreviews2(JSON.parse(duckingStorage.getItem('store')))
