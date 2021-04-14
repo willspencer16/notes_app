@@ -6,7 +6,12 @@ class Note {
 	}
 
 	preview () {
-		return this.content.slice(0,20)
+    if(this.content.length > 20) {
+      return this.content.slice(0,19) + '\u2026'
+    }
+    else {
+      return this.content
+    }
 	}
 
   getContent() {
