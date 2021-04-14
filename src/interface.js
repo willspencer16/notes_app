@@ -5,6 +5,12 @@ let noteArea = document.getElementById("noteArea")
 let previewsContainer = document.getElementById('previews');
 let duckingStorage = window.localStorage;
 
+if (duckingStorage.getItem('Store') !== null) {
+  JSON.parse(duckingStorage.getItem('Store')).forEach((note) => {
+    list.createNote(note.content)
+  });
+}
+
 async function postData(url = '', data = {}) {
   // Default options are marked with *
   const response = await fetch(url, {
@@ -37,24 +43,17 @@ function mountPreviews(listInstance) {
 }
 
 
-
-// function mountPreviews2(listInstance) {
-//   listInstance.forEach(function (preview) {
-//     var newHeading = document.createElement('a')
-//     var previewText = document.createTextNode(preview.content);
-//     var gap = document.createElement('br');
-
-//     newHeading.appendChild(previewText);
-
-//     previewsContainer.appendChild(newHeading);
-//     previewsContainer.appendChild(gap);
-//   });
-// }
-
-// function storesNotesLocally(note) {
-//   duckingStorage = window.localStorage;
-//   duckingStorage.setItem('store', `${note}`);
-// }
+function storesNotesLocally(note) {
+  if (duckingStorage.getItem('Store') === null) {
+    store = JSON.stringify(note)
+    duckingStorage.setItem('Store', `[${store}]`);
+  } else if (duckingStorage.getItem('Store') !== null) {
+    let store = JSON.parse(duckingStorage.getItem('Store'));
+    store.push(note)
+    store = JSON.stringify(store)
+    duckingStorage.setItem('Store', `${store}`);
+  }
+}
 
 const createNote = document.getElementById('createNote');
 createNote.addEventListener('click', makeNote, false);
@@ -64,10 +63,8 @@ function makeNote() {
   postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
   .then(data => {
 
-    list.createNote(data.emojified_text);
-    //var test = JSON.stringify(list.store)
-    //storesNotesLocally(test)
-    // console.log(duckingStorage.getItem('store'))
+    var note = list.createNote(data.emojified_text);
+    storesNotesLocally(note)
 
     noteArea.value = '';
     previewsContainer.innerHTML = '';
@@ -75,18 +72,4 @@ function makeNote() {
 });
 }
 
-console.log(JSON.stringify("note"))
-
-// window.addEventListener('click', function() {
-//   alert("Hello! I am an alert box!!");
-//   duckingStorage = window.localStorage;
-//
-//   duckingStorage.setItem('myCat', 'Tom');
-//   alert(`${duckingStorage.getItem('BCRevision_1586197124329')}`)
-// })
-
-
-console.log(list.storage.getItem('Store'))
 mountPreviews(list)
-// console.log(JSON.parse(duckingStorage.getItem('store')))
-// mountPreviews2(JSON.parse(duckingStorage.getItem('store')))
