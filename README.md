@@ -75,6 +75,15 @@ Class List {
 }
 
 
+## Local Storage
+
+makeNote on click
+	-> createNote
+		-> store.push(content)
+			-> mountPreviews
+				-> getPreviews(store)
+					-> note.preview()
+
 
 
 

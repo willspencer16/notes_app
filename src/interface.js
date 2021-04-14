@@ -38,23 +38,23 @@ function mountPreviews(listInstance) {
 
 
 
-function mountPreviews2(listInstance) {
-  listInstance.forEach(function (preview) {
-    var newHeading = document.createElement('a')
-    var previewText = document.createTextNode(preview.content);
-    var gap = document.createElement('br');
+// function mountPreviews2(listInstance) {
+//   listInstance.forEach(function (preview) {
+//     var newHeading = document.createElement('a')
+//     var previewText = document.createTextNode(preview.content);
+//     var gap = document.createElement('br');
 
-    newHeading.appendChild(previewText);
+//     newHeading.appendChild(previewText);
 
-    previewsContainer.appendChild(newHeading);
-    previewsContainer.appendChild(gap);
-  });
-}
+//     previewsContainer.appendChild(newHeading);
+//     previewsContainer.appendChild(gap);
+//   });
+// }
 
-function storesNotesLocally(note) {
-  duckingStorage = window.localStorage;
-  duckingStorage.setItem('store', `${note}`);
-}
+// function storesNotesLocally(note) {
+//   duckingStorage = window.localStorage;
+//   duckingStorage.setItem('store', `${note}`);
+// }
 
 const createNote = document.getElementById('createNote');
 createNote.addEventListener('click', makeNote, false);
@@ -65,8 +65,8 @@ function makeNote() {
   .then(data => {
 
     list.createNote(data.emojified_text);
-    var test = JSON.stringify(list.store)
-    storesNotesLocally(test)
+    //var test = JSON.stringify(list.store)
+    //storesNotesLocally(test)
     // console.log(duckingStorage.getItem('store'))
 
     noteArea.value = '';
@@ -86,7 +86,7 @@ console.log(JSON.stringify("note"))
 // })
 
 
-
+console.log(list.storage.getItem('Store'))
 mountPreviews(list)
 // console.log(JSON.parse(duckingStorage.getItem('store')))
-mountPreviews2(JSON.parse(duckingStorage.getItem('store')))
+// mountPreviews2(JSON.parse(duckingStorage.getItem('store')))
