@@ -15,7 +15,7 @@ isItTheDuckingSame(list.store[0].getContent(), testContent , 'list.store with on
 let testNote = list.store[0]
 isItTheDuckingSameArray(list.store, [testNote] , 'list.store with one note in it should return an array with that one note');
 
-isItTheDuckingSame(list2.createNote(testContent).getContent(), testContent, "Create Note function creates a note");
+isItTheDuckingSame(list2.createNote(testContent).content, testContent, "Create Note function creates a note");
 
 isItTheDuckingSame((list2.createNote(testContent) instanceof Note), true, "Create Note function creates an instance of Note");
 

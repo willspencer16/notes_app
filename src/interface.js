@@ -4,20 +4,6 @@ let list = new List();
 let noteArea = document.getElementById("noteArea")
 let previewsContainer = document.getElementById('previews');
 
-
-function mountPreviews(listInstance) {
-  listInstance.getPreviews().forEach(function (preview) {
-    var newHeading = document.createElement('a')
-    var previewText = document.createTextNode(preview);
-    var gap = document.createElement('br');
-
-    newHeading.appendChild(previewText);
-
-    previewsContainer.appendChild(newHeading);
-    previewsContainer.appendChild(gap);
-  });
-}
-
 async function postData(url = '', data = {}) {
   // Default options are marked with *
   const response = await fetch(url, {
@@ -36,11 +22,33 @@ async function postData(url = '', data = {}) {
   return response.json(); // parses JSON response into native JavaScript objects
 }
 
+function mountPreviews(listInstance) {
+  listInstance.getPreviews().forEach(function (preview) {
+    var newHeading = document.createElement('a')
+    var previewText = document.createTextNode(preview);
+    var gap = document.createElement('br');
+
+    newHeading.appendChild(previewText);
+
+    previewsContainer.appendChild(newHeading);
+    previewsContainer.appendChild(gap);
+  });
+}
+
 const createNote = document.getElementById('createNote');
 createNote.addEventListener('click', makeNote, false);
 
 function makeNote() {
-  list.createNote(noteArea.value);
+
+  postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
+  .then(data => {
+
+    list.createNote(data.emojified_text);
+
+    noteArea.value = '';
+    previewsContainer.innerHTML = '';
+    mountPreviews(list)
+});  
 }
 
 mountPreviews(list)
