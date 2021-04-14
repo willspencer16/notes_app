@@ -24,6 +24,9 @@ async function postData(url = '', data = {}) {
 }
 
 function mountPreviews(listInstance) {
+  noteArea.value = '';
+  previewsContainer.innerHTML = '';
+
   listInstance.store.forEach(function (note) {
     let notesList = `<p id='${note.id}'>${note.preview()}</p>`
     previewsContainer.innerHTML += notesList
@@ -31,11 +34,18 @@ function mountPreviews(listInstance) {
   enableListeners()
 }
 
-function addUpdateButton() {
-  console.log("addupdatebutton called");
+function addUpdateButton(id) {
   if(document.getElementById('update-button') === null) {
-    console.log("passes the if statement");
-    buttonContainer.innerHTML += '<button id="update-button">Update</button>';
+    buttonContainer.insertAdjacentHTML('beforeend', '<button id="update-button">Update</button>');
+
+    var updateButton = document.getElementById('update-button')
+
+    updateButton.addEventListener('click', function() {
+      const found = list.store.find(note => note.id === id)
+      found.updateNote(noteArea.value)
+      mountPreviews(list);
+      updateButton.remove()
+    })
   }
 }
 
@@ -43,8 +53,7 @@ function enableListeners () {
   document.querySelectorAll('p').forEach(item => {
     item.addEventListener('click', function() { 
       displayNote(this.id)
-      console.log("continues past displaynote");
-      addUpdateButton()
+      addUpdateButton(this.id)
     })
   })
 }
@@ -64,8 +73,6 @@ function makeNote() {
 
     list.createNote(data.emojified_text);
 
-    noteArea.value = '';
-    previewsContainer.innerHTML = '';
     mountPreviews(list)
 });  
 }
