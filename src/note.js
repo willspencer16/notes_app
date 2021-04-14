@@ -17,4 +17,8 @@ class Note {
   getContent() {
     return this.content;
   }
+
+  updateNote(content) {
+    this.content = content
+  }
 }

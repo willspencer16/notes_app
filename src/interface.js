@@ -1,8 +1,9 @@
 // preview DOM interactivity
 
 let list = new List();
-let noteArea = document.getElementById("noteArea")
+let noteArea = document.getElementById("noteArea");
 let previewsContainer = document.getElementById('previews');
+let buttonContainer = document.getElementById('buttons');
 
 async function postData(url = '', data = {}) {
   // Default options are marked with *
@@ -30,10 +31,20 @@ function mountPreviews(listInstance) {
   enableListeners()
 }
 
+function addUpdateButton() {
+  console.log("addupdatebutton called");
+  if(document.getElementById('update-button') === null) {
+    console.log("passes the if statement");
+    buttonContainer.innerHTML += '<button id="update-button">Update</button>';
+  }
+}
+
 function enableListeners () {
   document.querySelectorAll('p').forEach(item => {
     item.addEventListener('click', function() { 
       displayNote(this.id)
+      console.log("continues past displaynote");
+      addUpdateButton()
     })
   })
 }
