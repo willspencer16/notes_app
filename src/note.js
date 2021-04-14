@@ -1,7 +1,8 @@
 
 class Note {
-	constructor (content) {
+	constructor (content, num) {
 		this.content = content
+    this.id = `note${num}`
 	}
 
 	preview () {

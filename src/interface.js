@@ -23,20 +23,28 @@ async function postData(url = '', data = {}) {
 }
 
 function mountPreviews(listInstance) {
-  listInstance.getPreviews().forEach(function (preview) {
-    var newHeading = document.createElement('a')
-    var previewText = document.createTextNode(preview);
-    var gap = document.createElement('br');
-
-    newHeading.appendChild(previewText);
-
-    previewsContainer.appendChild(newHeading);
-    previewsContainer.appendChild(gap);
+  listInstance.store.forEach(function (note) {
+    let notesList = `<p id='${note.id}'>${note.preview()}</p>`
+    previewsContainer.innerHTML += notesList
   });
+  enableListeners()
+}
+
+function enableListeners () {
+  document.querySelectorAll('p').forEach(item => {
+    item.addEventListener('click', function() { 
+      displayNote(this.id)
+    })
+  })
+}
+
+function displayNote(id) {
+  const found = list.store.find(note => note.id === id)
+  noteArea.value = found.content
 }
 
 const createNote = document.getElementById('createNote');
-createNote.addEventListener('click', makeNote, false);
+createNote.addEventListener('click', makeNote);
 
 function makeNote() {
 
