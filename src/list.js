@@ -4,9 +4,15 @@ class List {
   }
 
   createNote(content) {
-    let newNote = new Note(content)
-    this.store.push(newNote);
-    return newNote
+    postData('https://makers-emojify.herokuapp.com/', { "text": content })
+    .then(data => {
+      let newNote = new Note(data.emojified_text)
+      this.store.push(newNote);
+
+      noteArea.value = '';
+      previewsContainer.innerHTML = '';
+      mountPreviews(list)
+  });  
   }
 
   getPreviews() {
