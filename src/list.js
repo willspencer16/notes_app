@@ -4,9 +4,9 @@ class List {
   }
 
   createNote(content) {
-    let newNote = new Note(content)
-    this.store.push(newNote);
-    return newNote
+      let newNote = new Note(content)
+      this.store.push(newNote);
+      return newNote;
   }
 
   getPreviews() {
