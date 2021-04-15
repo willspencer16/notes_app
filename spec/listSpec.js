@@ -24,3 +24,5 @@ isItTheDuckingSame((list2.createNote(testContent) instanceof Note), true, "Creat
 isItTheDuckingSame(list2.store[1].id, 'note2', "The note id should be note2");
 
 isItTheDuckingSame(list.getPreviews()[0], "This is my first no\u2026", "reduces each note to 20 chars and returns them in an array");
+
+// ifItTheDuckingSame(list)

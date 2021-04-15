@@ -53,12 +53,32 @@ function addUpdateButton(id) {
       postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
       .then(data => {
         found.updateNote(data.emojified_text)
-        
+
         updateLocalStorage(found)
 
         mountPreviews(list);
         updateButton.remove()
-    });
+        document.getElementById('delete-button').remove()
+      });
+    })
+  }
+}
+
+function addDeleteButton(id) {
+  if(document.getElementById('delete-button') === null) {
+    buttonContainer.insertAdjacentHTML('beforeend', '<button id="delete-button">Delete</button>');
+
+    var deleteButton = document.getElementById('delete-button')
+
+    deleteButton.addEventListener('click', function() {
+      const found = list.store.find(note => note.id === id)
+
+      // list.delete(found)
+      // deleteFromLocalStorage(found)
+
+      mountPreviews(list)
+      deleteButton.remove()
+      document.getElementById('update-button').remove()
     })
   }
 }
@@ -68,6 +88,7 @@ function enableListeners () {
     item.addEventListener('click', function() {
       displayNote(this.id)
       addUpdateButton(this.id)
+      addDeleteButton(this.id)
     })
   })
 }
