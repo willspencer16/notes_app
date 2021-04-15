@@ -1,8 +1,9 @@
 // preview DOM interactivity
 
 let list = new List();
-let noteArea = document.getElementById("noteArea")
+let noteArea = document.getElementById("noteArea");
 let previewsContainer = document.getElementById('previews');
+let buttonContainer = document.getElementById('buttons');
 let duckingStorage = window.localStorage;
 
 if (duckingStorage.getItem('Store') !== null) {
@@ -30,16 +31,43 @@ async function postData(url = '', data = {}) {
 }
 
 function mountPreviews(listInstance) {
-  listInstance.getPreviews().forEach(function (preview) {
-    var newHeading = document.createElement('a')
-    var previewText = document.createTextNode(preview);
-    var gap = document.createElement('br');
+  noteArea.value = '';
+  previewsContainer.innerHTML = '';
 
-    newHeading.appendChild(previewText);
-
-    previewsContainer.appendChild(newHeading);
-    previewsContainer.appendChild(gap);
+  listInstance.store.forEach(function (note) {
+    let notesList = `<p id='${note.id}'>${note.preview()}</p>`
+    previewsContainer.innerHTML += notesList
   });
+  enableListeners()
+}
+
+function addUpdateButton(id) {
+  if(document.getElementById('update-button') === null) {
+    buttonContainer.insertAdjacentHTML('beforeend', '<button id="update-button">Update</button>');
+
+    var updateButton = document.getElementById('update-button')
+
+    updateButton.addEventListener('click', function() {
+      const found = list.store.find(note => note.id === id)
+      found.updateNote(noteArea.value)
+      mountPreviews(list);
+      updateButton.remove()
+    })
+  }
+}
+
+function enableListeners () {
+  document.querySelectorAll('p').forEach(item => {
+    item.addEventListener('click', function() {
+      displayNote(this.id)
+      addUpdateButton(this.id)
+    })
+  })
+}
+
+function displayNote(id) {
+  const found = list.store.find(note => note.id === id)
+  noteArea.value = found.content
 }
 
 
@@ -56,7 +84,7 @@ function storesNotesLocally(note) {
 }
 
 const createNote = document.getElementById('createNote');
-createNote.addEventListener('click', makeNote, false);
+createNote.addEventListener('click', makeNote);
 
 function makeNote() {
 
@@ -66,8 +94,6 @@ function makeNote() {
     var note = list.createNote(data.emojified_text);
     storesNotesLocally(note)
 
-    noteArea.value = '';
-    previewsContainer.innerHTML = '';
     mountPreviews(list)
 });
 }
