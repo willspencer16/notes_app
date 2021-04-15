@@ -97,3 +97,20 @@ makeNote on click
 			-> mountPreviews
 				-> getPreviews(store)
 					-> note.preview()
+
+
+
+CreateNote 1, 2
+LocalStorage 1, 2
+
+refresh
+LocalStorage 1, 2
+CreateNote 1, 2
+
+deleteNote 1
+CreateNote 2
+LocalStorage  2
+
+refresh
+LocalStorage  2
+createNote 1

@@ -8,9 +8,11 @@ let duckingStorage = window.localStorage;
 
 if (duckingStorage.getItem('Store') !== null) {
   JSON.parse(duckingStorage.getItem('Store')).forEach((note) => {
-    list.createNote(note.content)
+    deleteFromLocalStorage(note)
+    storesNotesLocally(list.createNote(note.content))
   });
 }
+
 
 async function postData(url = '', data = {}) {
   // Default options are marked with *
@@ -83,14 +85,6 @@ function addDeleteButton(id) {
   }
 }
 
-function deleteFromLocalStorage(deletedNote) {
-  let store = JSON.parse(duckingStorage.getItem('Store'));
-  foundIndex = store.findIndex(note => note.id === deletedNote.id)
-  store.splice(foundIndex, 1)
-  store = JSON.stringify(store)
-  duckingStorage.setItem('Store', `${store}`);
-}
-
 function enableListeners () {
   document.querySelectorAll('p').forEach(item => {
     item.addEventListener('click', function() {
@@ -127,10 +121,24 @@ function updateLocalStorage(updatedNote) {
   duckingStorage.setItem('Store', `${store}`);
 }
 
+function deleteFromLocalStorage(deletedNote) {
+  let store = JSON.parse(duckingStorage.getItem('Store'));
+  foundIndex = store.findIndex(note => note.id === deletedNote.id)
+  console.log(store)
+  store.splice(foundIndex, 1)
+  console.log(store)
+  store = JSON.stringify(store)
+  duckingStorage.setItem('Store', `${store}`);
+}
+
 const createNote = document.getElementById('createNote');
 createNote.addEventListener('click', makeNote);
 
 function makeNote() {
+  if (noteArea.value === "") {
+    window.alert("You cannot save an empty note...DOOFUS!")
+    return
+  }
 
   postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
   .then(data => {
