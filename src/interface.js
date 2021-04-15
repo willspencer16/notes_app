@@ -49,9 +49,16 @@ function addUpdateButton(id) {
 
     updateButton.addEventListener('click', function() {
       const found = list.store.find(note => note.id === id)
-      found.updateNote(noteArea.value)
-      mountPreviews(list);
-      updateButton.remove()
+
+      postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
+      .then(data => {
+        found.updateNote(data.emojified_text)
+        
+        updateLocalStorage(found)
+
+        mountPreviews(list);
+        updateButton.remove()
+    });
     })
   }
 }
@@ -81,6 +88,14 @@ function storesNotesLocally(note) {
     store = JSON.stringify(store)
     duckingStorage.setItem('Store', `${store}`);
   }
+}
+
+function updateLocalStorage(updatedNote) {
+  let store = JSON.parse(duckingStorage.getItem('Store'));
+  foundIndex = store.findIndex(note => note.id === updatedNote.id)
+  store[foundIndex].content = updatedNote.content
+  store = JSON.stringify(store)
+  duckingStorage.setItem('Store', `${store}`);
 }
 
 const createNote = document.getElementById('createNote');
