@@ -73,14 +73,22 @@ function addDeleteButton(id) {
     deleteButton.addEventListener('click', function() {
       const found = list.store.find(note => note.id === id)
 
-      // list.delete(found.id)
-      // deleteFromLocalStorage(found)
+      list.deleteNote(found.id)
+      deleteFromLocalStorage(found)
 
       mountPreviews(list)
       deleteButton.remove()
       document.getElementById('update-button').remove()
     })
   }
+}
+
+function deleteFromLocalStorage(deletedNote) {
+  let store = JSON.parse(duckingStorage.getItem('Store'));
+  foundIndex = store.findIndex(note => note.id === deletedNote.id)
+  store.splice(foundIndex, 1)
+  store = JSON.stringify(store)
+  duckingStorage.setItem('Store', `${store}`);
 }
 
 function enableListeners () {

@@ -31,5 +31,3 @@ let testNote2 = list.store[0]
 isItTheDuckingSameArray(list.deleteNote(list.store[0].id), [testNote2], "Deleting a note removes it from store and returns it for deletion in the local storage")
 
 isItTheDuckingSame(list.store.length, 0, 'after deletion it will have an empty store again')
-// console.log(list.store)
-// console.log(list.store[0].id)
