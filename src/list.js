@@ -18,4 +18,9 @@ class List {
     })
     return result;
   }
+
+  deleteNote(id) {
+    const foundIndex = this.store.findIndex(note => note.id === id)
+    return this.store.splice(foundIndex, 1)
+  }
  }
