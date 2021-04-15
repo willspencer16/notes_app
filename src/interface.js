@@ -4,6 +4,13 @@ let list = new List();
 let noteArea = document.getElementById("noteArea");
 let previewsContainer = document.getElementById('previews');
 let buttonContainer = document.getElementById('buttons');
+let duckingStorage = window.localStorage;
+
+if (duckingStorage.getItem('Store') !== null) {
+  JSON.parse(duckingStorage.getItem('Store')).forEach((note) => {
+    list.createNote(note.content)
+  });
+}
 
 async function postData(url = '', data = {}) {
   // Default options are marked with *
@@ -42,16 +49,23 @@ function addUpdateButton(id) {
 
     updateButton.addEventListener('click', function() {
       const found = list.store.find(note => note.id === id)
-      found.updateNote(noteArea.value)
-      mountPreviews(list);
-      updateButton.remove()
+
+      postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
+      .then(data => {
+        found.updateNote(data.emojified_text)
+        
+        updateLocalStorage(found)
+
+        mountPreviews(list);
+        updateButton.remove()
+    });
     })
   }
 }
 
 function enableListeners () {
   document.querySelectorAll('p').forEach(item => {
-    item.addEventListener('click', function() { 
+    item.addEventListener('click', function() {
       displayNote(this.id)
       addUpdateButton(this.id)
     })
@@ -63,6 +77,27 @@ function displayNote(id) {
   noteArea.value = found.content
 }
 
+
+function storesNotesLocally(note) {
+  if (duckingStorage.getItem('Store') === null) {
+    store = JSON.stringify(note)
+    duckingStorage.setItem('Store', `[${store}]`);
+  } else if (duckingStorage.getItem('Store') !== null) {
+    let store = JSON.parse(duckingStorage.getItem('Store'));
+    store.push(note)
+    store = JSON.stringify(store)
+    duckingStorage.setItem('Store', `${store}`);
+  }
+}
+
+function updateLocalStorage(updatedNote) {
+  let store = JSON.parse(duckingStorage.getItem('Store'));
+  foundIndex = store.findIndex(note => note.id === updatedNote.id)
+  store[foundIndex].content = updatedNote.content
+  store = JSON.stringify(store)
+  duckingStorage.setItem('Store', `${store}`);
+}
+
 const createNote = document.getElementById('createNote');
 createNote.addEventListener('click', makeNote);
 
@@ -71,10 +106,11 @@ function makeNote() {
   postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
   .then(data => {
 
-    list.createNote(data.emojified_text);
+    var note = list.createNote(data.emojified_text);
+    storesNotesLocally(note)
 
     mountPreviews(list)
-});  
+});
 }
 
 mountPreviews(list)
