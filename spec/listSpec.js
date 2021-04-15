@@ -5,6 +5,8 @@ let list2 = new List();
 let testContent = "This is my first note, I wrote it with Stu.";
 // let testNote = new Note(testContent);
 
+console.log("THESE ARE THE list.js TESTS!")
+
 isItTheDuckingSame(list.store.length, 0, 'list.store should be a empty array with length 0');
 isItTheDuckingSameArray(list.store, [], 'list.store should be a empty array');
 
@@ -25,4 +27,9 @@ isItTheDuckingSame(list2.store[1].id, 'note2', "The note id should be note2");
 
 isItTheDuckingSame(list.getPreviews()[0], "This is my first no\u2026", "reduces each note to 20 chars and returns them in an array");
 
-// ifItTheDuckingSame(list)
+let testNote2 = list.store[0]
+isItTheDuckingSameArray(list.deleteNote(list.store[0].id), [testNote2], "Deleting a note removes it from store and returns it for deletion in the local storage")
+
+isItTheDuckingSame(list.store.length, 0, 'after deletion it will have an empty store again')
+// console.log(list.store)
+// console.log(list.store[0].id)

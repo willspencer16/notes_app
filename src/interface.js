@@ -73,7 +73,7 @@ function addDeleteButton(id) {
     deleteButton.addEventListener('click', function() {
       const found = list.store.find(note => note.id === id)
 
-      // list.delete(found)
+      // list.delete(found.id)
       // deleteFromLocalStorage(found)
 
       mountPreviews(list)
