@@ -17,6 +17,10 @@ isItTheDuckingSameArray(list.store, [testNote] , 'list.store with one note in it
 
 isItTheDuckingSame(list2.createNote(testContent).content, testContent, "Create Note function creates a note");
 
+isItTheDuckingSame(list2.store[0].id, 'note1', "The note id should be note1");
+
 isItTheDuckingSame((list2.createNote(testContent) instanceof Note), true, "Create Note function creates an instance of Note");
 
-isItTheDuckingSame(list.getPreviews()[0], "This is my first not", "reduces each note to 20 chars and returns them in an array");
+isItTheDuckingSame(list2.store[1].id, 'note2', "The note id should be note2");
+
+isItTheDuckingSame(list.getPreviews()[0], "This is my first no\u2026", "reduces each note to 20 chars and returns them in an array");
