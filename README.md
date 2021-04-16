@@ -1,5 +1,7 @@
 # Notes App
 
+Makers Week 7 Afternoon Group Coding Challenge using javascript.
+
 Notes App created by:
 - Will - willspencer16
 - Alex - yates101
@@ -13,6 +15,12 @@ As part of development we also created our own testing script - `Is it ducking w
 The app is hosted on github pages, please visit the following on your browser (tested on chrome and firefox):
 - Notes App: https://willspencer16.github.io/notes_app/
 - Test page for App: https://willspencer16.github.io/notes_app/TestRunner.html
+		- look in the console on developer tools (cmd + option + i) for output of all the tests.
+
+Image Credits:
+- Testing gif - Giphy - https://gph.is/2JzLlHY
+- Background image of web page - Ann H - https://www.pexels.com/photo/snow-water-summer-winter-6432494/
+
 
 ## User Stories:
 
@@ -89,7 +97,7 @@ Class List {
 }
 
 
-## Local Storage
+## Local Storage route model
 
 makeNote on click
 	-> createNote
@@ -97,20 +105,3 @@ makeNote on click
 			-> mountPreviews
 				-> getPreviews(store)
 					-> note.preview()
-
-
-
-CreateNote 1, 2
-LocalStorage 1, 2
-
-refresh
-LocalStorage 1, 2
-CreateNote 1, 2
-
-deleteNote 1
-CreateNote 2
-LocalStorage  2
-
-refresh
-LocalStorage  2
-createNote 1
