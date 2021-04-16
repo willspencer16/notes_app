@@ -124,9 +124,7 @@ function updateLocalStorage(updatedNote) {
 function deleteFromLocalStorage(deletedNote) {
   let store = JSON.parse(duckingStorage.getItem('Store'));
   foundIndex = store.findIndex(note => note.id === deletedNote.id)
-  console.log(store)
   store.splice(foundIndex, 1)
-  console.log(store)
   store = JSON.stringify(store)
   duckingStorage.setItem('Store', `${store}`);
 }
