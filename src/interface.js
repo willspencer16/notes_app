@@ -8,9 +8,11 @@ let duckingStorage = window.localStorage;
 
 if (duckingStorage.getItem('Store') !== null) {
   JSON.parse(duckingStorage.getItem('Store')).forEach((note) => {
-    list.createNote(note.content)
+    deleteFromLocalStorage(note)
+    storesNotesLocally(list.createNote(note.content))
   });
 }
+
 
 async function postData(url = '', data = {}) {
   // Default options are marked with *
@@ -53,12 +55,32 @@ function addUpdateButton(id) {
       postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
       .then(data => {
         found.updateNote(data.emojified_text)
-        
+
         updateLocalStorage(found)
 
         mountPreviews(list);
         updateButton.remove()
-    });
+        document.getElementById('delete-button').remove()
+      });
+    })
+  }
+}
+
+function addDeleteButton(id) {
+  if(document.getElementById('delete-button') === null) {
+    buttonContainer.insertAdjacentHTML('beforeend', '<button id="delete-button">Delete</button>');
+
+    var deleteButton = document.getElementById('delete-button')
+
+    deleteButton.addEventListener('click', function() {
+      const found = list.store.find(note => note.id === id)
+
+      list.deleteNote(found.id)
+      deleteFromLocalStorage(found)
+
+      mountPreviews(list)
+      deleteButton.remove()
+      document.getElementById('update-button').remove()
     })
   }
 }
@@ -68,6 +90,7 @@ function enableListeners () {
     item.addEventListener('click', function() {
       displayNote(this.id)
       addUpdateButton(this.id)
+      addDeleteButton(this.id)
     })
   })
 }
@@ -98,10 +121,22 @@ function updateLocalStorage(updatedNote) {
   duckingStorage.setItem('Store', `${store}`);
 }
 
+function deleteFromLocalStorage(deletedNote) {
+  let store = JSON.parse(duckingStorage.getItem('Store'));
+  foundIndex = store.findIndex(note => note.id === deletedNote.id)
+  store.splice(foundIndex, 1)
+  store = JSON.stringify(store)
+  duckingStorage.setItem('Store', `${store}`);
+}
+
 const createNote = document.getElementById('createNote');
 createNote.addEventListener('click', makeNote);
 
 function makeNote() {
+  if (noteArea.value === "") {
+    window.alert("You cannot save an empty note...DOOFUS!")
+    return
+  }
 
   postData('https://makers-emojify.herokuapp.com/', { "text": noteArea.value })
   .then(data => {

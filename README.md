@@ -1,5 +1,19 @@
 # Notes App
 
+Notes App created by:
+- Will - willspencer16
+- Alex - yates101
+- Stu - StuBehan
+- Jack - jackmcc08
+
+The was created with vanilla javascript, HTML and CSS. It also incorporates an emoji API to generate emojis based on shortcodes and utilise localContent on your browser to preserve the notes data.
+
+As part of development we also created our own testing script - `Is it ducking working?`
+
+The app is hosted on github pages, please visit the following on your browser (tested on chrome and firefox):
+- Notes App: https://willspencer16.github.io/notes_app/
+- Test page for App: https://willspencer16.github.io/notes_app/TestRunner.html
+
 ## User Stories:
 
 ```
@@ -29,7 +43,7 @@ So I can record notes with fun little pictures
 ### MVP:
 
 Notes:
-- [x] Separate js class for notes 
+- [x] Separate js class for notes
 - [x] Return first 20 characters
 
 
@@ -86,14 +100,17 @@ makeNote on click
 
 
 
+CreateNote 1, 2
+LocalStorage 1, 2
 
+refresh
+LocalStorage 1, 2
+CreateNote 1, 2
 
+deleteNote 1
+CreateNote 2
+LocalStorage  2
 
-
-
-
-
-
-
-
-
+refresh
+LocalStorage  2
+createNote 1
