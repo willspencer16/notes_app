@@ -15,3 +15,5 @@ isItTheDuckingSame(longNote.getContent(), "Lorem ipsum vivamus and some", "getCo
 longNote.updateNote("Forget lorem, these ducks be chillin")
 
 isItTheDuckingSame(longNote.getContent(), "Forget lorem, these ducks be chillin", 'Update function changes content')
+
+isItTheDuckingSame(longNote.getContent(), "blah", 'This is a failed test')

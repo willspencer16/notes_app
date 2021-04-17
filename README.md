@@ -21,6 +21,8 @@ Image Credits:
 - Testing gif - Giphy - https://gph.is/2JzLlHY
 - Background image of web page - Ann H - https://www.pexels.com/photo/snow-water-summer-winter-6432494/
 
+Trello Board for Planning:
+- https://trello.com/b/IOFj0gu7/notesapp
 
 ## User Stories:
 
